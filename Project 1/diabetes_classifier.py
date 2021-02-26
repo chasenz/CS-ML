@@ -1,7 +1,10 @@
 import knn_utils
 import numpy as np
-
+import time
 if __name__ == '__main__':
+    # Running Time
+    print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+
     # Load dataset
     dataset = knn_utils.load_dataset('dataset/diabetes.csv')
 
@@ -32,3 +35,4 @@ if __name__ == '__main__':
     # Visualize dataset
     knn_utils.hist_dataset(dataset)
     knn_utils.heatmap_dataset(dataset)
+    print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))

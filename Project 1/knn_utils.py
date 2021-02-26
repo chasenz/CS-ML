@@ -84,6 +84,7 @@ Returns:
 """
 def KNN_classification(X_test, X_train, y_train, k):
     y_predict = []
+    count = 0
     for test in X_test:
         # Calculate Euclid Distance
         # euclid_distance = np.sum((X_train - test) ** 2, axis= 1) ** 0.5
@@ -100,6 +101,8 @@ def KNN_classification(X_test, X_train, y_train, k):
         items.sort(key=lambda x: x[1], reverse=True)
         # Add results to the prediction array
         y_predict.append(items[0][0])
+        count = count + 1
+        print(count)
     return y_predict
 
 """
@@ -155,11 +158,22 @@ def pima_show_results(y_test, y_predict):
     return [[TP, FP],
             [FN, TN]]
 
+def digital_show_results(y_test, y_predict):
+    # Initialize confusion matrix
+    matrix = np.zeros((10,10), dtype=np.int32)
+    for i in range(len(y_test)):
+        if y_test[i] == y_predict[i]:
+            matrix[y_test[i]][y_test[i]] = matrix[y_test[i]][y_test[i]] + 1
+        else:
+            matrix[y_test[i]][y_predict[i]] = matrix[y_test[i]][y_predict[i]] + 1
+    return matrix
+
+
 def confusion_martix(array, row, col):
     df_cm = pd.DataFrame(array, index=[i for i in row],
                          columns=[i for i in col])
-    sn.set(font_scale=1.4)
-    sn.heatmap(df_cm, annot=True, annot_kws={"size": 16})
+    # sn.set(font_scale=1.4)
+    sn.heatmap(df_cm, annot=True, annot_kws={"size": 8})
     plt.show()
 
 def show_img(img_array, label, ax):
